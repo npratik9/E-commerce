@@ -7,7 +7,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(cors())
 
 app.get("/api/test" , (req,res)=>{
-    res.json("suraj ghawk ghawk")
+    res.json("hello from express")
 } )
 
 module.exports = app;
