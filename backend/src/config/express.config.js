@@ -1,16 +1,9 @@
 const express= require('express')
-const cors= require('cors')
-require('dotenv').config()
-const mongoose= require('mongoose')
+const router = require('./router.config')
 
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 const app = express();
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(cors())
 
-app.get("/api/test" , (req,res)=>{
-    res.json("hello from express")
-} )
+app.use('/api/v1/', router)
+
 
 module.exports = app;
