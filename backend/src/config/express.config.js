@@ -1,5 +1,6 @@
 const express = require("express");
 const router = require("./router.config");
+const ErrorHandler = require("../middleware/error-handler.middleware");
 
 const app = express();
 
@@ -20,5 +21,9 @@ app.use(
 
 //router mount
 app.use("/api/v1/", router);
+
+
+//error handler
+app.use(ErrorHandler)
 
 module.exports = app;

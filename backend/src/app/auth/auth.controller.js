@@ -1,8 +1,9 @@
 class AuthController {
    registerUser = (req, res, next) =>{
+    const data = req.body
     res.status(200).json({
-        data: "register user",
-        message:"This is registerUser function",
+        data: {data},
+        message:"user registered successfully",
         status:"ok"
     })
 
@@ -12,7 +13,7 @@ class AuthController {
       const params = req.params;
         res.status(200).json({
           data: { params },
-          message: "This is activateUser function "+ params.token,
+          message: "This is activation key "+ params.token,
           status: "ok",
         });
    };
