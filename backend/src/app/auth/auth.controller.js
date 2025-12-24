@@ -1,31 +1,41 @@
 class AuthController {
-   registerUser = () =>{
+   registerUser = (req, res, next) =>{
+    res.status(200).json({
+        data: "register user",
+        message:"This is registerUser function",
+        status:"ok"
+    })
 
-   }
+   };
 
-   activateUser(){
+   activateUser= (req, res, next) =>{
+      const params = req.params;
+        res.status(200).json({
+          data: { params },
+          message: "This is activateUser function" + params.token,
+          status: "ok",
+        });
+   };
 
-   }
+   resendToken = (req, res, next) =>{
 
-   resendToken(){
+   };
 
-   }
+   loginUser= (req, res, next) =>{
 
-   loginUser(){
+   };
 
-   }
+   getLoggedInUser= (req, res, next) =>{
 
-   getLoggedInUser(){
+   };
 
-   }
+   logOut= (req, res, next) =>{
 
-   logOut(){
+   };
 
-   }
+   updateUserProfile= (req, res, next) =>{
 
-   updateUserProfile(){
-
-   }
+   };
 
 }
 
