@@ -1,7 +1,7 @@
 const authRouter= require('express').Router()
 const auth = require('../../middleware/auth.middleware')
 const bodyValidator = require('../../middleware/validator.middleware')
-const {registerDTO,updateMyProfileDTO,loginDTO}= require("./auth.request")
+const {registerDTO, updateMyProfileDTO, loginDTO}= require("./auth.request")
 const authCtrl= require('./auth.controller')
 
 
