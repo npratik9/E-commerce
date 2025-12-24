@@ -12,12 +12,17 @@ class AuthController {
       const params = req.params;
         res.status(200).json({
           data: { params },
-          message: "This is activateUser function" + params.token,
+          message: "This is activateUser function "+ params.token,
           status: "ok",
         });
    };
 
    resendToken = (req, res, next) =>{
+    res.json({
+      data: null,
+      message:"resending token",
+      status:"ok"
+    })
 
    };
 

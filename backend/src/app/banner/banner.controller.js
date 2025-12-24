@@ -41,7 +41,7 @@ class BannerController {
     const params= req.params;
     res.json({
       data: { params },
-      mesage: "Deletng Banner of " + params.id,
+      mesage: "Deleting Banner of " + params.id,
       status: "ok",
     });
    }  
