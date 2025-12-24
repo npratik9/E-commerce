@@ -23,7 +23,7 @@ app.use(
 app.use("/api/v1/", router);
 
 
-//error handler
+//error handling middleware
 app.use(ErrorHandler)
 
 module.exports = app;
