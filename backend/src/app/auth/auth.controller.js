@@ -1,6 +1,18 @@
+const bcrypt = require('bcryptjs');
+const { Status } = require('../../config/constants');
+const randomStringGenerate = require('../../utilities/helpers');
+
 class AuthController {
    registerUser = (req, res, next) =>{
+    //data
     const data = req.body
+    //encryption of pwd
+    data.password = bcrypt.hashSync(data.password, 12);
+
+    //access control
+    data.status = Status.INACTIVE;
+    data.activationToken = randomStringGenerate();
+
     res.status(200).json({
         data: {data},
         message:"user registered successfully",
