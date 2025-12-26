@@ -1,8 +1,12 @@
 const express = require("express");
 const router = require("./router.config");
 const ErrorHandler = require("../middleware/error-handler.middleware");
+const { connectMongodb } = require("./db.config");
 
 const app = express();
+
+//mongodb connection
+connectMongodb()
 
 //parsers
 //json
