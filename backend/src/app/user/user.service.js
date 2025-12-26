@@ -22,8 +22,9 @@ class UserService {
         const userObj = new UserModel(data);
         return await userObj.save();
       }catch (exception){
-        console.log(exception)
-        throw{code:400, message:"User Cannot Be Register", status:"USER_REGISTER_ERR"}
+        // console.log(exception)
+        //throw{code:400, message:"User Cannot Be Register", status:"USER_REGISTER_ERR"}
+        throw exception
       }
     }
 
