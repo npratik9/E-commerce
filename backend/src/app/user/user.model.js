@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { UserRoles, Status } = require("../config/constants");
+const { UserRoles, Status ,Gender} = require("../../config/constants");
 
 const UserSchema = new mongoose.Schema(
   {
