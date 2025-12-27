@@ -3,8 +3,10 @@ const userSvc = require("../user/user.service");
 class AuthController {
   registerUser = async (req, res, next) => {
     try {
-      const data = userSvc.transformToUserData(req);
+      const data = await userSvc.transformToUserData(req);
       const user = await userSvc.registerUser(data);
+      
+
       res.status(200).json({
         data: userSvc.getUserProfile(user),
         message: "user registered successfully",

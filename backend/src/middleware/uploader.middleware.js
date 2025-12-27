@@ -1,4 +1,5 @@
 const multer = require("multer");
+const fs = require('fs')
 const randomStringGenerate = require("../utilities/helpers");
 
 const uploader = (type = "image") => {
@@ -27,11 +28,12 @@ const uploader = (type = "image") => {
   };
 
   const myStorage = multer.diskStorage({
-    destination: (reqq, file, cb) => {
+    destination: (req, file, cb) => {
       const tmpPath = "./public/uploads";
       if (!fs.existsSync(tmpPath)) {
         fs.mkdirSync(tmpPath, { recursive: true });
       }
+      
       cb(null, tmpPath);
     },
 
@@ -41,7 +43,7 @@ const uploader = (type = "image") => {
     },
   });
   return multer({
-    storage: "",
+    storage: myStorage,
     fileFilter: fileFilter,
     limits: {
       fileSize: size,

@@ -2,19 +2,24 @@ const bcrypt = require('bcryptjs');
 const { Status } = require('../../config/constants');
 const randomStringGenerate = require('../../utilities/helpers');
 const UserModel = require('./user.model');
+const cloudinarySvc = require('../../service/cloudinary.service');
 
 class UserService {
-    transformToUserData (req) {
-      //data
-      const data = req.body;
-      //encryption of pwd
-      data.password = bcrypt.hashSync(data.password, 12);
+    async transformToUserData (req) {
+      try{
+        //data
+        const data = req.body;
+        //encryption of pwd
+        data.password = bcrypt.hashSync(data.password, 12);
+        data.image = await cloudinarySvc.singleFileUpload();
+        //access control
+        data.status = Status.INACTIVE;
+        data.activationToken = randomStringGenerate();
 
-      //access control
-      data.status = Status.INACTIVE;
-      data.activationToken = randomStringGenerate();
-
-      return data;
+        return data;
+      } catch(exception) {
+        throw exception
+      }
     }
 
     async registerUser(data) {

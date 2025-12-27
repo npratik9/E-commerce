@@ -3,9 +3,10 @@ const auth = require('../../middleware/auth.middleware')
 const bodyValidator = require('../../middleware/validator.middleware')
 const {registerDTO, updateMyProfileDTO, loginDTO}= require("./auth.request")
 const authCtrl= require('./auth.controller')
+const uploader = require('../../middleware/uploader.middleware')
 
 
-authRouter.post("/register", bodyValidator(registerDTO), authCtrl.registerUser)
+authRouter.post("/register",uploader().single("image"), bodyValidator(registerDTO), authCtrl.registerUser)
 authRouter.get("/activate/:token", authCtrl.activateUser)
 authRouter.get("/resend-token/:token", authCtrl.resendToken)
 authRouter.post("/login", bodyValidator(loginDTO), authCtrl.loginUser)
