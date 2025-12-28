@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { Status } = require('../../config/constants');
-const randomStringGenerate = require('../../utilities/helpers');
+const {randomStringGenerate, dateCreate} = require('../../utilities/helpers');
 const UserModel = require('./user.model');
 const cloudinarySvc = require('../../service/cloudinary.service');
 
@@ -11,10 +11,16 @@ class UserService {
         const data = req.body;
         //encryption of pwd
         data.password = bcrypt.hashSync(data.password, 12);
+        
+        if(!req.file){
+          throw {code:400, detail:{image: "image is required"}, message:"Validation Failed", status:"VALIDATION_ERR"}
+        }
+
         data.image = await cloudinarySvc.singleFileUpload();
         //access control
         data.status = Status.INACTIVE;
         data.activationToken = randomStringGenerate();
+        data.expiry = dateCreate(new Date() , 1)
 
         return data;
       } catch(exception) {
