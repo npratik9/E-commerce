@@ -11,7 +11,8 @@ const registerDTO = Joi.object({
     confirmPassword: Joi.ref('password'),
     role: Joi.string().regex(roleRegex).default('customer').messages({
          "string.pattern.base": "Role can only be owner or custormer"
-    })
+    }),
+    image: Joi.string()
 })
 
 const updateMyProfileDTO = Joi.object({
