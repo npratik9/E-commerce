@@ -30,10 +30,15 @@ const EmailConfig = {
   },
 };
 
+const AppConfig = {
+  frontendUrl: process.env.FRONTEND_URL
+}
+
 
 module.exports = {
     DBConfig,
     CloudinaryConfig,
     SmtpConfig,
-    EmailConfig
+    EmailConfig,
+    AppConfig
 }

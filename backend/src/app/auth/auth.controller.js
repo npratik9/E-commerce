@@ -1,4 +1,5 @@
 const userSvc = require("../user/user.service");
+const authMailSvc = require("./auth.mail");
 
 class AuthController {
   registerUser = async (req, res, next) => {
@@ -6,6 +7,7 @@ class AuthController {
       const data = await userSvc.transformToUserData(req);
       const user = await userSvc.registerUser(data);
       
+      await authMailSvc.activateYourAccount(user)
 
       res.status(200).json({
         data: userSvc.getUserProfile(user),
