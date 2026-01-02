@@ -2,7 +2,7 @@ const { AppConfig } = require("../../config/config");
 const MailService = require("../../service/mail.service");
 
 class AuthMailService extends MailService {
-  async activateYourAccount() {
+  async activateYourAccount(user) {
     try {
       let activationLink = AppConfig.frontendUrl + "/activate" + user.activationToken;
       return await this.sendEmail({

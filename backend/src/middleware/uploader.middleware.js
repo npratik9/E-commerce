@@ -1,6 +1,6 @@
 const multer = require("multer");
 const fs = require('fs')
-const randomStringGenerate = require("../utilities/helpers");
+const {randomStringGenerate} = require("../utilities/helpers");
 
 const uploader = (type = "image") => {
   let allowedExts = ["jpg", "jpeg", "png", "svg", "webp", "gif", "bmp"];
@@ -38,7 +38,7 @@ const uploader = (type = "image") => {
     },
 
     filename: (req, file, cb) => {
-      const filename = randomStringGenerate(15) + "-" + file.orignalname;
+      const filename = randomStringGenerate(15) + "-" + file.originalname;
       cb(null, filename);
     },
   });

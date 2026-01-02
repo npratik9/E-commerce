@@ -33,8 +33,8 @@ class MailService {
         messageBody['bcc'] = bcc;
       }
 
-      if (attachements) {
-        messageBody['attachments'] = attachements;
+      if (attachments) {
+        messageBody['attachments'] = attachments;
       }
         
 
@@ -49,4 +49,4 @@ class MailService {
   }
 }
 
-module.expports = MailService
+module.exports = MailService

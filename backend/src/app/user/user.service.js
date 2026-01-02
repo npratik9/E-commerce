@@ -16,7 +16,7 @@ class UserService {
           throw {code:400, detail:{image: "image is required"}, message:"Validation Failed", status:"VALIDATION_ERR"}
         }
 
-        data.image = await cloudinarySvc.singleFileUpload();
+        data.image = await cloudinarySvc.singleFileUpload(req.file.path,"users");
         //access control
         data.status = Status.INACTIVE;
         data.activationToken = randomStringGenerate();
