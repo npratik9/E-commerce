@@ -95,7 +95,7 @@ class AuthMailService extends MailService {
 
   async resendTokenNotification(userDetail) {
     try {
-      let loginLink = AppConfig.frontendUrl + "/login";
+      let activationLink = AppConfig.frontendUrl + "/activate" + userDetail.activationToken;
       return await this.sendEmail({
         to: userDetail.email,
         subject: "Re-activate your account!!!",

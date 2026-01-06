@@ -31,7 +31,8 @@ const EmailConfig = {
 };
 
 const AppConfig = {
-  frontendUrl: process.env.FRONTEND_URL
+  frontendUrl: process.env.FRONTEND_URL,
+  jwtSecret: process.env.JWT_SECRET
 }
 
 
