@@ -1,4 +1,6 @@
+const { date } = require("joi");
 const { Status } = require("../../config/constants");
+const { randomStringGenerate, dateCreate } = require("../../utilities/helpers");
 const userSvc = require("../user/user.service");
 const authMailSvc = require("./auth.mail");
 
@@ -60,12 +62,43 @@ class AuthController {
     }
   };
 
-  resendToken = (req, res, next) => {
-    res.json({
-      data: null,
-      message: "resending token",
-      status: "ok",
-    });
+  resendToken = async(req, res, next) => {
+    try{
+      const token= req.params.token;
+      let userDetail= await userSvc.getSingleRowByFilter({
+        activationToken: token,
+      })
+
+      if(!userDetail){
+        throw{ code:404, message:"Token not found or broken", status:"TOKEN_NOT_FOUND"}
+      }
+
+      const today = Date.now()
+      const expiry = userDetail.expiry.getTime()
+      if(today <= expiry){
+        throw {code:400, message:"your token or link has not expired", status:"TOKEN_NOT_EXPIRED"}
+      }
+
+      userDetail= await userSvc.upadteSingleRowByFilter(
+        {
+          _id: userDetail._id,
+        },
+        {
+          activationToken: randomStringGenerate(100),
+          expiry: dateCreate(new Date(),1)
+        }
+      );
+
+      await authMailSvc.resendTokenNotification(userDetail)
+
+      res.json({
+        data: userDetail,
+        message:"Your account has been registered successfully",
+        status:"ACTIVATION_SUCCESSFUL"
+      })
+    } catch(exception){
+      throw exception
+    }
   };
 
   loginUser = (req, res, next) => {};
