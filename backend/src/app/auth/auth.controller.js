@@ -146,11 +146,44 @@ class AuthController {
     }
   };
 
-  getLoggedInUser = (req, res, next) => {};
+  getLoggedInUser = (req, res, next) => {
+    res.json({
+      data: req.loggedInUser,
+      message: "my-profile",
+      status: "ok",
+    });
+  };
 
-  logOut = (req, res, next) => {};
+  logOut = async (req, res, next) => {
+    try{
+      //logout current device
+      let filter = {
+        accessToken: req.headers['authorization'].replace("Bearer ", "")
+      }
 
-  updateUserProfile = (req, res, next) => {};
+      //logout all devices
+      if(req.query.devices === "all"){
+        filter= {
+          user: req.loggedInUser._id
+        }
+      }
+
+      console.log(filter)
+      await authService.deleteManyByFilter(filter);
+      res.json({
+        data: null,
+        message:"you have been logged out",
+        status:"ok"
+      })
+
+    }catch(exception){
+      next(exception)
+    }
+  };
+
+  updateUserProfile = (req, res, next) => {
+    
+  };
 }
 
 const authCtrl = new AuthController();

@@ -16,6 +16,23 @@ class AuthService {
             throw exception
         }
     }
+
+    async getSingleRowByFilter(filter){
+        try{
+            return await SessionModel.findOne(filter)
+                .populate("user", ['_id','name','email','role','image','address','phone','gender','status'])
+        } catch(exception){
+            throw exception
+        }
+    }
+
+    async deleteManyByFilter(filter){
+        try{
+            return await SessionModel.deleteMany(filter)
+        } catch(exception){
+            throw exception
+        }
+    }
 }
 
 module.exports = new AuthService();
