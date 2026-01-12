@@ -37,6 +37,8 @@ const UserSchema = new mongoose.Schema(
 
     address: String,
 
+    dob: Date,
+
     phone: String,
 
     gender: {
@@ -75,6 +77,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-//model
+//schema to model
 const UserModel = mongoose.model("User", UserSchema);
 module.exports = UserModel;

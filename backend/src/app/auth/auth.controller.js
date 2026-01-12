@@ -168,7 +168,7 @@ class AuthController {
         }
       }
 
-      console.log(filter)
+      // console.log(filter)
       await authService.deleteManyByFilter(filter);
       res.json({
         data: null,
@@ -181,8 +181,12 @@ class AuthController {
     }
   };
 
-  updateUserProfile = (req, res, next) => {
-    
+  updateUserProfile = async(req, res, next) => {
+    try{
+
+    }catch(exception){
+      next(exception)
+    }
   };
 }
 

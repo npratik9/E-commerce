@@ -19,8 +19,29 @@ const updateMyProfileDTO = Joi.object({
   name: Joi.string().min(2).max(50).required(),
   address: Joi.string().min(2).max(250).required(),
   gender: Joi.string().allow('male','female','other').required(),
-  dob: Joi.date().less('now').required(),
+  dob: Joi.date().less('now'),
   image: Joi.string().allow(null, "").optional().default(null)
+});
+
+const updateUserProfileDTO = Joi.object({
+  name: Joi.string().min(2).max(50).required(),
+  address: Joi.string().min(2).max(250).required(),
+  gender: Joi.string().allow("male", "female", "other").required(),
+  dob: Joi.date().less("now").required(),
+  role: Joi.string()
+    .regex(/^(admin|seller|customer)$/)
+    .required()
+    .messages({
+      "string.pattern.base": "Role can be 'admin', 'seller' or 'customer' ",
+    }),
+  phone: Joi.string().optional().allow(null, "").default(null),
+  status: Joi.string()
+    .regex(/^(active|inactive)$/)
+    .required()
+    .messages({
+      "string.pattern.base": "Status can be either active or inactive ",
+    }),
+  image: Joi.string().allow(null, "").optional().default(null),
 });
 
 const loginDTO = Joi.object({
@@ -31,5 +52,6 @@ const loginDTO = Joi.object({
 module.exports= {
     registerDTO,
     updateMyProfileDTO,
+    updateUserProfileDTO,
     loginDTO
 }

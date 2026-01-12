@@ -16,7 +16,7 @@ class CloudinaryService{
             const {public_id, secure_url} = await cloudinary.uploader.upload(filepath, {
                 unique_filename: true,
                 // format: "auto",
-                folder: dir ? '/hotel-booking'+ dir :"/hotel-booking"
+                folder: dir ? '/E-com'+ dir :"/E-com"
             })
 
             const thumbUrl = cloudinary.url(public_id, {

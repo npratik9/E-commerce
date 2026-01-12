@@ -1,15 +1,15 @@
 const { Status } = require("../../config/constants");
-const categoryService = require("./category.service");
+const brandService = require("./brand.service");
 
-class CategoryController {
-  async createCategory(req, res, next) {
+class BrandController {
+  async createBrand(req, res, next) {
     try {
-      const data = await categoryService.transfromToCategory(req);
-      const category = await categoryService.storeCategory(data);
+      const data = await brandService.transromToBrand(req);
+      const brand = await brandService.storeBrand(data);
 
       res.status(201).json({
-        data: category,
-        message: "Category Created",
+        data: brand,
+        message: "Brand Created",
         status: "OK",
       });
     } catch (exception) {
@@ -17,7 +17,7 @@ class CategoryController {
     }
   }
 
-  async listAllCategories(req, res, next) {
+  async listAllBrand(req, res, next) {
     try {
       // filter and pagination
       let filter = {};
@@ -39,13 +39,13 @@ class CategoryController {
       const page = +req.query.page || 1;
       const limit = +req.query.limit || 20;
 
-      const { data, pagination } = await categoryService.getAllRowsByFilter(
+      const { data, pagination } = await brandService.getAllRowsByFilter(
         filter,
         { page, limit }
       );
       res.json({
         data: data,
-        message: "All Category List",
+        message: "All Brand List",
         status: "OK",
         meta: { pagination },
       });
@@ -54,7 +54,7 @@ class CategoryController {
     }
   }
 
-  async frontListAllCategories(req, res, next) {
+  async frontListAllBrand(req, res, next) {
     let filter = {
       status: Status.ACTIVE,
     };
@@ -77,40 +77,39 @@ class CategoryController {
         isFeatured: false,
       };
     }
-
     // pagination
     const page = +req.query.page || 1;
     const limit = +req.query.limit || 20;
 
-    const { data, pagination } = await categoryService.getAllRowsByFilter(filter, {
+    const { data, pagination } = await brandService.getAllRowsByFilter(filter, {
       page,
       limit,
     });
     res.json({
       data: data,
-      message: "All Category List",
+      message: "All Brand List",
       status: "OK",
       meta: { pagination },
     });
     res.json({
       data: null,
-      message: "All Category List",
+      message: "All Brand List",
       status: "OK",
     });
   }
 
-  async viewCategoryDetailById(req, res, next) {
+  async viewBrandDetailById(req, res, next) {
     try {
       const id = req.params.id;
-      const detail = await categoryService.getSingleRowByFilter({
+      const detail = await brandService.getSingleRowByFilter({
         _id: id,
       });
       if (!detail) {
-        throw { code: 404, message: "Category not found", status: "NOT_FOUND" };
+        throw { code: 404, message: "Brand not found", status: "NOT_FOUND" };
       }
       res.json({
         data: detail,
-        message: "Category Detail",
+        message: "Brand Detail",
         status: "OK",
       });
     } catch (exception) {
@@ -118,51 +117,53 @@ class CategoryController {
     }
   }
 
-  async getCategoryDetailBySlug(req, res, next) {
+  async getBrandDetailBySlug(req, res, next) {
     try {
       const filter = {
-        status: Status.ACTIVE, 
-        slug: req.params.slug
-      }
-      let detail = await categoryService.getSingleRowByFilter(filter);
+        status: Status.ACTIVE,
+        slug: req.params.slug,
+      };
+      let detail = await brandService.getSingleRowByFilter(filter);
       if (!detail) {
-        throw { code: 404, message: "Category not found", status: "NOT_FOUND" };
+        throw { code: 404, message: "Brand not found", status: "NOT_FOUND" };
       }
 
-      
+      // TODO: fetch products for this brand
       res.json({
         detail: {
-          category: detail, 
-          products: null
+          brand: detail,
+          products: null,
         },
-        message: "Category Detail by Slug",
+        message: "Brand Detail by Slug",
         status: "OK",
-        meta: {pagination: {
-          page: 1, 
-          limit: 20, 
-          total: 0
-        }}
-      })
-    } catch(exception) {
-      next(exception)
+        meta: {
+          pagination: {
+            page: 1,
+            limit: 20,
+            total: 0,
+          },
+        },
+      });
+    } catch (exception) {
+      next(exception);
     }
   }
 
-  async updateCategoryById(req, res, next) {
+  async updateBrandById(req, res, next) {
     try {
       const id = req.params.id;
-      let detail = await categoryService.getSingleRowByFilter({
+      let detail = await brandService.getSingleRowByFilter({
         _id: id,
       });
       if (!detail) {
-        throw { code: 404, message: "Category not found", status: "NOT_FOUND" };
+        throw { code: 404, message: "Brand not found", status: "NOT_FOUND" };
       }
-      const data = await categoryService.transfromToCategoryForUpdate(req, detail);
-      detail = await categoryService.updateSingleRowByFilter({ _id: id }, data);
+      const data = await brandService.transfromToBrandForUpdate(req, detail);
+      detail = await brandService.updateSingleRowByFilter({ _id: id }, data);
 
       res.json({
         data: detail,
-        message: "Category Updated",
+        message: "Brand Updated",
         status: "OK",
       });
     } catch (exception) {
@@ -170,26 +171,26 @@ class CategoryController {
     }
   }
 
-  async deleteCategoryById(req, res, next) {
+  async deleteBrandById(req, res, next) {
     try {
       const id = req.params.id;
-      let detail = await categoryService.getSingleRowByFilter({
+      let detail = await brandService.getSingleRowByFilter({
         _id: id,
       });
       if (!detail) {
-        throw { code: 404, message: "Category not found", status: "NOT_FOUND" };
+        throw { code: 404, message: "Brand not found", status: "NOT_FOUND" };
       }
-      await categoryService.deleteSingleRowByFilter({_id: id});
+      await brandService.deleteSingleRowByFilter({ _id: id });
       res.json({
         data: null,
-        message: "Category Delete",
+        message: "Brand Delete",
         status: "OK",
       });
-    } catch(exception) {
-      next(exception)
+    } catch (exception) {
+      next(exception);
     }
   }
 }
 
-const categoryCtrl = new CategoryController()
-module.exports = categoryCtrl
+const brandCtrl = new BrandController();
+module.exports = brandCtrl;

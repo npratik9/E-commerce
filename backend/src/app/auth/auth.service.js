@@ -33,6 +33,8 @@ class AuthService {
             throw exception
         }
     }
+
+   
 }
 
 module.exports = new AuthService();

@@ -9,7 +9,7 @@ class UserService {
     try {
       //data
       const data = req.body;
-      //encryption of pwd
+      //encryption of password
       data.password = bcrypt.hashSync(data.password, 12);
 
       if (!req.file) {

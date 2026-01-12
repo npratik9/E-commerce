@@ -3,11 +3,6 @@ const Status = {
     INACTIVE:"inactive"
 }
 
-const UserRoles = {
-    ADMIN: "admin",
-    OWNER: "owner",
-    CUSTOMER: "customer"
-}
 
 const Gender ={
     MALE: "male",
@@ -15,9 +10,23 @@ const Gender ={
     OTHER: "other"
 }
 
+const UserRoles = {
+  ADMIN: "admin",
+  CUSTOMER: "customer",
+  SELLER: "seller",
+};
+
+const OrderStatus = {
+  PENDING: "pending",
+  VERIFIED: "verified",
+  CANCELLED: "cancelled",
+  DELIVERED: "completed",
+};
+
 
 module.exports = {
     Status,
     UserRoles,
+    OrderStatus,
     Gender
 }

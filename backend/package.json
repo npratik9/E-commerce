@@ -25,6 +25,8 @@
     "mongodb": "^7.0.0",
     "mongoose": "^9.0.0",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.12"
+    "nodemailer": "^7.0.12",
+    "pnpm": "^10.28.0",
+    "slugify": "^1.6.6"
   }
 }
